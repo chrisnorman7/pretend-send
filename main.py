@@ -1,6 +1,7 @@
 """PretendSend."""
 
 import os.path
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from datetime import datetime
 from random import choice
 from flask import Flask, render_template, jsonify, request, abort
@@ -101,6 +102,22 @@ def reply():
     return jsonify(dict(id=message.id))
 
 
+parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
+
+parser.add_argument(
+    '-i', '--interface', default='0.0.0.0', help='The interface to bind to'
+)
+
+parser.add_argument(
+    '-p', '--port', type=int, default=8398, help='The port to listen on'
+)
+
+parser.add_argument(
+    '-d', '--debug', action='store_true', default=False,
+    help='Enable debugging mode'
+)
+
 if __name__ == '__main__':
+    args = parser.parse_args()
     db.create_all()
-    app.run(host='0.0.0.0', port='8398')
+    app.run(host=args.interface, port=args.port, debug=args.debug)
