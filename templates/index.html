@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>PretendSend</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+</head>
+<body>
+<h1>PretendSend</h1>
+<div id="menu">
+<h2>Menu</h2>
+<ul role="menu">
+<li role="menuitem"><input type="button" class="menu-button" id="next" value="Get Next Caller"></li>
+<li role="menuitem"><input type="button" id="new" value="Create New Thread"></li>
+<li role="menuitem"><input type="button" value="Load Thread" id="load"></li>
+</ul>
+</div>
+
+<!-- Main work area. -->
+<div id="main">
+<h2 id="header"></h2>
+<div id="output"></div>
+<form id="replyForm">
+<h3>Reply</h3>
+<p id="sender"></p>
+<p><textarea id="input"></textarea></p>
+<p><input type="submit" value="Reply"></p>
+</form>
+<p><input type="button" id="back" value="Back To Main Screen"></p>
+</div>
+<p id="status"></p>
+
+<!-- JavaScript. -->
+<script src="{{ url_for('static', filename='main.js') }}?{{ mtime }}">
+<!-- The main script file. -->
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+</body>
+</html>
