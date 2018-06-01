@@ -29,6 +29,7 @@ const buttonNext = document.getElementById("next")
 const buttonPrevious = document.getElementById("previous")
 const buttonNew = document.getElementById("new")
 const buttonLoad = document.getElementById("load")
+let lastClicked = buttonNext
 
 const buttonBack = document.getElementById("back")
 buttonBack.onclick = ready
@@ -64,7 +65,7 @@ function ready() {
     status.innerText = "No thread loaded yet."
     main.hidden = true
     menu.hidden = false
-    buttonNext.focus()
+    lastClicked.focus()
 }
 
 const main = document.getElementById("main")
@@ -108,15 +109,13 @@ function showThread(t) {
 }
 
 buttonNext.onclick = () => {
+    lastClicked = buttonNext
     fetch("/next/").then(loadThread).catch(showError)
 }
 
 buttonNew.onclick = () => {
+    lastClicked = buttonNew
     fetch("/new/").then(loadThread).catch(showError)
-}
-
-buttonLoad.onclick = () => {
-    alert("Load specific thread.")
 }
 
 function showError(err) {
@@ -124,6 +123,7 @@ function showError(err) {
 }
 
 buttonLoad.onclick = () => {
+    lastClicked = buttonLoad
     let p = prompt("Enter the thread ID", threadId)
     getThread(p)
 }
@@ -134,6 +134,7 @@ function getThread(id) {
 
 buttonPrevious.onclick = () => {
     if (threadId) {
+        lastClicked = buttonPrevious
         getThread(threadId)
     } else {
         alert("You have no previous thread saved. First click \"Get Next Caller\".")
