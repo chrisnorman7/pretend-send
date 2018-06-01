@@ -26,6 +26,7 @@ replyForm.onsubmit = (e) => {
 const input = document.getElementById("input")
 const output = document.getElementById("output")
 const buttonNext = document.getElementById("next")
+const buttonPrevious = document.getElementById("previous")
 const buttonNew = document.getElementById("new")
 const buttonLoad = document.getElementById("load")
 
@@ -124,5 +125,17 @@ function showError(err) {
 
 buttonLoad.onclick = () => {
     let p = prompt("Enter the thread ID", threadId)
-    fetch(`/thread/${p}`).then(loadThread).catch(showError)
+    getThread(p)
+}
+
+function getThread(id) {
+    fetch(`/thread/${id}`).then(loadThread).catch(showError)
+}
+
+buttonPrevious.onclick = () => {
+    if (threadId) {
+        getThread(threadId)
+    } else {
+        alert("You have no previous thread saved. First click \"Get Next Caller\".")
+    }
 }
