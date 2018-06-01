@@ -38,19 +38,7 @@ const header = document.getElementById("header")
 const status = document.getElementById("status")
 
 function loadThread(response) {
-    if (response.ok) {
-        response.json().then(showThread).catch(showError)
-    } else {
-        response.text().then((text) => {
-            let m = text.match(errorRegexp)
-            if (m) {
-                m = m[1]
-            } else {
-                m = response.statusText
-            }
-            showError({message: m})
-        })
-    }
+    maybeShowError(response, (response) => response.json().then(showThread).catch(showError))
 }
 
 function clearElement(e) {
@@ -120,6 +108,22 @@ buttonNew.onclick = () => {
 
 function showError(err) {
     alert(err.message)
+}
+
+function maybeShowError(response, func) {
+    if (response.ok) {
+        func(response)
+    } else {
+        response.text().then((text) => {
+            let m = text.match(errorRegexp)
+            if (m) {
+                m = m[1]
+            } else {
+                m = response.statusText
+            }
+            showError({message: m})
+        })
+    }
 }
 
 buttonLoad.onclick = () => {
