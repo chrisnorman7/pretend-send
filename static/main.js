@@ -50,7 +50,6 @@ function clearElement(e) {
 }
 
 function ready() {
-    status.innerText = "No thread loaded yet."
     main.hidden = true
     menu.hidden = false
     lastClicked.focus()
@@ -61,7 +60,6 @@ main.hidden = true
 
 function showThread(t) {
     threadId = t.id
-    status.innerText = `Thread: #${threadId}.`
     menu.hidden = true
     clearElement(output)
     main.hidden = false
@@ -144,3 +142,13 @@ buttonPrevious.onclick = () => {
         alert("You have no previous thread saved. First click \"Get Next Caller\".")
     }
 }
+
+function getStats() {
+    fetch("/stats/").then((response) => {
+        maybeShowError(response, response => response.json().then(
+            data => status.innerText = `Number of threads: ${data.threads}. Number of messages: ${data.messages}.`
+        ).catch(showError))
+    })
+}
+
+setInterval(getStats, 5000)

@@ -102,6 +102,12 @@ def reply():
     return jsonify(dict(id=message.id))
 
 
+@app.route('/stats/')
+def stats():
+    d = dict(threads=Thread.query.count(), messages=Message.query.count())
+    return jsonify(d)
+
+
 parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 
 parser.add_argument(
