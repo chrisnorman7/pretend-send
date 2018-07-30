@@ -6,6 +6,7 @@ from datetime import datetime
 from random import choice
 from flask import Flask, render_template, jsonify, request, abort
 from flask_sqlalchemy import SQLAlchemy
+from gevent.pywsgi import WSGIServer
 
 js_filename = os.path.join('static', 'main.js')
 app = Flask(__name__)
@@ -126,4 +127,8 @@ parser.add_argument(
 if __name__ == '__main__':
     args = parser.parse_args()
     db.create_all()
-    app.run(host=args.interface, port=args.port, debug=args.debug)
+    http_server = WSGIServer((args.interface, args.port), app)
+    try:
+        http_server.serve_forever()
+    except KeyboardInterrupt:
+        pass
